@@ -11,7 +11,7 @@ async function createUser(req, res){
       const lastUser = data.users[data.users.length - 1];
 
       //last user id is checked.  defaults to one if last user does not exist.
-      const nextId = lastUser ? lastUser + 1 : 1;
+      const nextId = lastUser ? lastUser.id + 1 : 1;
 
       //Created a new user object
       const newUser = {
@@ -38,36 +38,51 @@ async function createUser(req, res){
 //async function to update a user
 async function updateUser(req, res){
     try{
-      const data  = await readData();
+      const data = await readData();
 
       //finder function that fetches user by id
       const user = data.users.find(user => user.id === parseInt(req.params.id));
 
-      //udpate the user object fields with values from the req.body (form data incoming)
+      //update the user object fields with values from the req.body (form data incoming)
       if(user){
         user.username = req.body.new_username || user.username;
-        user.firstname = req.body.first_name || user.first_name;
+        user.first_name = req.body.first_name || user.first_name;
         user.email = req.body.new_email || user.email;
 
         await writeData(data);
 
         res.status(200).json("User added successfully");
-        
-  } else {
-    res.status(400).json("User not found. Please try again.");
-  }
-    }catch(error){
-res.status(500).json("Internal Server Error");
 
+      } else {
+        res.status(404).json("User not found.  Please try again.");
+      }
+
+    }catch(error){
+      res.status(500).json("Internal Server Error");
     }
 }
 
 //async function to delete a user
 async function deleteUser(req, res){
     try{
-      
-    }catch(error){
+      const data =  await readData();
 
+      //finder function that fetches user by id
+      const user = data.users.find(user => user.id === parseInt(req.params.id));
+
+      //check if user exists.  Splice the user from the users array/object
+      if(user){
+        //user is index position (or id).  "1" is the match to remove.
+        data.users.splice(user, 1);
+        await writeData(data);
+
+        res.status(200).json("User successfully deleted");
+       } else {
+        res.status(404).json("User not found.  Please try again.");
+       }
+
+    }catch(error){
+       res.status(500).json("Internal Server Error");
     }
 }
 

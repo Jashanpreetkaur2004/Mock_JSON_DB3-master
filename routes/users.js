@@ -11,7 +11,10 @@ router.use(express.urlencoded({extended: true}));
 
 //create new user route
 router.post("/users", userController.createUser);
-
+//update user
+router.post("/users/:id/update", userController.updateUser);
+//delete user
+router.post("/users/:id/delete", userController.deleteUser);
 
 //Render the view
 router.get('/', (req, res) =>{

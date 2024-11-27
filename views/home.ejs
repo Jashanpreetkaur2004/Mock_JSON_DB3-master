@@ -37,49 +37,46 @@
 
             <input type="email" id="new_email" name="new_email" placeholder="New Email:" />
 
-            <button type="submit" onclick="updateUsers()">Update User</button>
+            <button type="submit" onclick="updateUser()">Update User</button>
         </form>
 
         <form id="deleteUserForm" method="POST" action="/users/:id/delete">
             <h4>Delete User (POST/DELETE Method)</h4>
             
             <input type="text" id="delete_id" name="id" placeholder="User ID:" />
-            <button type="submit" onclick="">Delete User</button>
+            <button type="submit" onclick="deleteUser()">Delete User</button>
         </form>
 
       </div>  
-      <script>
-        function updateUser(){
-
-       //Grab edit form
+    </body>
+    <script>
+      function updateUser(){
+        //Grab edit form
         const editUserForm = document.getElementById("editUserForm");
 
         //Grab id value from form input
         const id = document.getElementById("edit_id").value;
 
         //insert the id into the action attribute
-        editUsersForm.action = "/users/" + id + "/update"
+        editUserForm.action = "/users/" + id + "/update";
 
-       //submit the form
-       editUsersForm.submit();
+        //Submit the form
+        editUserForm.submit();
       }
-      
+
       function deleteUser(){
-        //grab the deleteuser form
-        const deleteUsersForm = document.getElementById("deleteUserForm");
+        //Grab the deleteUser form
+        const deleteUserForm = document.getElementById("deleteUserForm");
 
         //grabbing the id value from the input
         const id = document.getElementById("delete_id").value;
 
         //insert the id into the action attribute
-        deleteUsersForm.action = "/users/" + id + "/delete";
+        deleteUserForm.action = "/users/" + id + "/delete";
 
         //submit the form
-        deleteUsersForm.submit();
-            }
-      
-      </script>
-    
-    
-    </body>
+        deleteUserForm.submit();
+      }
+    </script>
+
 </html>
