@@ -1,0 +1,10 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "username": "Instructor",
+      "first_name": "Todd",
+      "email": "todd.nash@rdpolytech.ca"
+    }
+  ]
+}
